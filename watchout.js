@@ -17,9 +17,9 @@ for (var i = 0; i < 30; i++) {
 }
 
 svg.selectAll('circle').data(enemies, function(index) {
-  return [index.x, index.y];
+  return index.i;
 }).enter().append('circle')
-  .attr('r', 25)
+  .attr('r', 10)
   .attr('color', 'black')
   .attr('cx', function(data, index) {
     return enemies[index].x;
@@ -27,3 +27,23 @@ svg.selectAll('circle').data(enemies, function(index) {
   .attr('cy', function(data, index){
     return enemies[index].y;
   });
+
+var enemyMove = function() {
+  enemies = enemies.map(function(input) {
+    input.x = Math.floor(Math.random() * width);
+    input.y = Math.floor(Math.random() * height);
+    return input;
+  });
+
+  svg.selectAll('circle').data(enemies, function(index) {
+    return index.i;
+  }).transition().duration(500)
+  .attr('cx', function(data, index) {
+    return enemies[index].x;
+  })
+  .attr('cy', function(data, index){
+    return enemies[index].y;
+  })
+};
+
+setInterval(enemyMove, 1000);
