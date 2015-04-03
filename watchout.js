@@ -16,6 +16,14 @@ for (var i = 0; i < 30; i++) {
   });
 }
 
-svg.SelectAll('circle').data(enemies, function(index) {
-  return [index[x], index[y]];
-}).enter().append('circle');
+svg.selectAll('circle').data(enemies, function(index) {
+  return [index.x, index.y];
+}).enter().append('circle')
+  .attr('r', 25)
+  .attr('color', 'black')
+  .attr('cx', function(data, index) {
+    return enemies[index].x;
+  })
+  .attr('cy', function(data, index){
+    return enemies[index].y;
+  });
